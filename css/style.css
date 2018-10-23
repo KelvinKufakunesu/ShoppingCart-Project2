@@ -1,0 +1,195 @@
+header {
+    background-color: darkgrey;
+    width: 100%
+}
+
+.heading {
+    text-align: center;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.flexthis {
+    display: flex;
+    justify-content: center;
+}
+
+.icon {
+    text-align: center;
+    font-size: 2.5rem;
+    color: black;
+    margin: 0.8rem;
+}
+
+.container {
+    width: 95%;
+}
+
+.welcomeHeader {
+    text-align: center;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    margin-top: 3rem;
+}
+
+.welcomeText {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 2rem;
+}
+
+.loginText{
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 2rem;
+}
+
+.dicountText {
+    text-align: center;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+}
+
+img {
+    width: 60%;
+    text-align: center;
+}
+
+.appleText {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.appleForm {
+    text-align: center;
+}
+
+.formText {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.amountInputField {
+    text-align: center;
+    border: 1px solid darkgrey;
+    border-radius: 10rem;
+}
+
+.inputField {
+    border-width: 0 0 1px 0;
+    border-color: darkgrey;
+    width: 100%;
+    padding-top: 2rem;
+}
+
+.checkoutForm {
+    padding: 1rem;
+    box-shadow: 2px 2px 12px 0 rgba(0, 0, 80, 0.2);
+    width: 95%;
+    color: rgba(0, 0, 80, 1);
+    margin: 0 auto 2rem auto;
+    border-radius: .5rem;
+}
+
+.outline {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.orderHeading {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    font-size: 2rem;
+    padding-top: 1rem;
+}
+
+.orderTextTop {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding-top: 1rem;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.orderText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding-top: 1rem;
+    text-align: left;
+}
+
+.personalDetailsTop {
+    margin-top: 50px;
+}
+
+.logoutButton {
+    margin-top: 30px;
+}
+
+.checkoutButton {
+    margin-top: 30px;
+}
+
+.returnButton {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.registerButton {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+footer {
+    bottom: 0;
+    width: 100%;
+    background-color: gainsboro;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footerText {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    font-size: 1.6rem;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        width: 65%;
+    }
+
+    .heading {
+        font-size: 4rem;
+    }
+
+    .icon {
+        font-size: 3.5rem;
+        margin: 1rem;
+    }
+
+    .checkoutForm {
+        width: 100%;
+    }
+
+    img {
+        width: 80%;
+    }
+
+    .appleForm {
+        text-align: left;
+    }
+
+    .inputField {
+        border-width: 0 0 1px 0;
+        border-color: darkgrey;
+        width: 50%;
+        padding-top: 2rem;
+    }
