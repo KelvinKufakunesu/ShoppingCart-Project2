@@ -39,6 +39,10 @@ header {
     margin-bottom: 2rem;
 }
 
+.welcomeUserText{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .loginText{
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 2rem;
