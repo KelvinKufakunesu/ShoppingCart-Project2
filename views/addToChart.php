@@ -20,9 +20,10 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
 foreach($products as $product){
+    
     if ($_POST[$product["name"]] >= 1){
     
-            $_SESSION[$product["name"]] = $_POST[$product["name"]];
+    $_SESSION[$product["name"]] = $_POST[$product["name"]];
         
     $name = $product["name"];
     $price = $product["price"];
