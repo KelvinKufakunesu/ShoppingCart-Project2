@@ -46,35 +46,49 @@ session_start();
         <main class="row checkoutForm">
             <section class="col-12">
                 <h2 class="orderHeading">Your order</h2>
-
-                <?php
                 
+                <!-- php för checkout -->
+                <?php
                 $pdo = new PDO(
                 "mysql:host=localhost;dbname=FED18;charset=utf8",
                 "root", //user
                 "root"  //password
                 );
-
-             
+                
+                $username = $_SESSION["username"];
                 //Prepare a SQL-statement
-                $statement = $pdo->prepare("SELECT * FROM orders");
-                
+                $statement = $pdo->prepare("SELECT * FROM orders WHERE username = :username");
                 //Execute it
-                $statement->execute();
-                
+                $statement->execute(
+                [
+                    ":username" => $username
+                ]
+                );
                 //Fetch every row that it returns. $products is now an Associative array
                 $products = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    
+                
+                //check if I get the right array back
+                //highlight_string("<?php =\n" . var_export($products, true) . ";\n");
+                
+                //loop through product array
                 $totalShoppingChart = 0;
                 foreach($products as $product){
-                    if($_SESSION["username"] === $product["username"]){
-                        $totalPrice = ($product["amount"] * $product["price"]); //Save as total price
-                        $totalShoppingChart += $totalPrice; //Calculate total sum of shopping cart
-                        echo '<div class="orderText">' . $product["amount"] . ' ' . $product["name"] . ' ' . $product["price"] . ' kr/styck = ' . $totalPrice . ' kr</div>'; 
-                    }
+                    $totalPrice = ($product["amount"] * $product["price"]); //Save as total price
+                    $totalShoppingChart += $totalPrice; //Calculate total sum of shopping cart
+                    echo '<div class="orderText">' . $product["amount"] . ' ' . str_replace("_", " ", $product["name"]) . ' ' . $product["price"] . ' kr/styck = ' . $totalPrice . ' kr</div>'; 
                 }
-                echo '<div class="orderText">Total: '  . number_format($totalShoppingChart, 2) . ' kr</div>';
-                echo '<div class="orderText">A confirmation has been sent to: '  . $_SESSION["username"] . '</div>'; //confirmation sent to username                    
+                echo '<div class="orderText">Total: '  . number_format($totalShoppingChart, 2) . ' kr</div>'; 
+                echo '<div class="orderText">A confirmation has been sent to: '  . $_SESSION["username"] . '</div>'; //confirmation sent to username 
+                
+                
+                //when confirmation is done delete all products from chart where username is logged in username
+                $username = $_SESSION["username"];                
+
+                $statement = $pdo->prepare("DELETE FROM orders WHERE username = :username");
+                $statement->execute(
+                [
+                    ":username" => $username
+                ]);
                 ?>
 
             </section>
