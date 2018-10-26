@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if(!isset($_SESSION["username"])){
+     header('Location: ../includesAndPartials/registerForm.php?log_in');
+}
 ?>
 
 <!doctype html>
@@ -37,7 +41,10 @@ session_start();
         <div class="row appleForm">
             <section class="col-12">
                 <h1 class="welcomeHeader">This is your shopping cart
-                    <?=$_SESSION["username"]?>
+                   <?php
+                   if(isset($_SESSION["username"])){
+                    echo $_SESSION["username"];
+                    }?>
                 </h1>
                 <p class="welcomeText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto velit minima consequuntur officia harum odio saepe, voluptate minus!</p>
             </section>
@@ -51,34 +58,40 @@ session_start();
 
                 <!-- php för checkout -->
                 <?php
-                
                 $pdo = new PDO(
                 "mysql:host=localhost;dbname=FED18;charset=utf8",
                 "root", //user
                 "root"  //password
                 );
-
-             
-                    //Prepare a SQL-statement
-                    $statement = $pdo->prepare("SELECT * FROM orders");
-                    //Execute it
-                    $statement->execute();
-                    //Fetch every row that it returns. $products is now an Associative array
-                    $products = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    
-                    $totalShoppingChart = 0;
-                    foreach($products as $product){
-                        if($_SESSION["username"] === $product["username"]){
-                            $totalPrice = ($product["amount"] * $product["price"]); //Save as total price
-                            $totalShoppingChart += $totalPrice; //Calculate total sum of shopping cart
-                            echo '<div class="orderText">' . $product["amount"] . ' ' . $product["name"] . ' ' . $product["price"] . ' kr/styck = ' . $totalPrice . ' kr</div>'; 
-                        }
-                    }
-                    echo '<div class="orderText">Total: '  . number_format($totalShoppingChart, 2) . ' kr</div>';
+                
+                
+                $username = $_SESSION["username"];
+                //Prepare a SQL-statement
+                $statement = $pdo->prepare("SELECT * FROM orders WHERE username = :username");
+                //Execute it
+                $statement->execute(
+                [
+                    ":username" => $username
+                ]
+                );
+                //Fetch every row that it returns. $products is now an Associative array
+                $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+                
+                //check if I get the right array back
+                //highlight_string("<?php =\n" . var_export($products, true) . ";\n");
+                
+                $totalShoppingChart = 0;
+                foreach($products as $product){
+                    $totalPrice = ($product["amount"] * $product["price"]); //Save as total price
+                    $totalShoppingChart += $totalPrice; //Calculate total sum of shopping cart
+                    echo '<div class="orderText">' . $product["amount"] . ' ' . str_replace("_", " ", $product["name"]) . ' ' . $product["price"] . ' kr/styck = ' . $totalPrice . ' kr</div>'; 
+                }
+                echo '<div class="orderText">Total: '  . number_format($totalShoppingChart, 2) . ' kr</div>';    
                 ?>
 
-
                 <a class="btn btn-dark returnButton" href="confirm.php" role="button">Order your apples</a>
+                <a class="btn btn-dark returnButton" href="../index.php" role="button">Shop more</a>
+                <a class="btn btn-dark" href="removeFromChart.php" role="button">Delete your shopping chart</a>
             </section>
         </main>
     </div>
@@ -86,7 +99,6 @@ session_start();
     <div class="container">
         <div class="row">
             <form class="col-12">
-                <!--                <a class="btn btn-dark checkoutButton" href="views/checkout.php" role="button">Go to checkout</a>-->
                 <a class="btn btn-dark checkoutButton" href="../includesAndPartials/logout.php" role="button">Logout</a>
             </form>
         </div>
@@ -96,5 +108,4 @@ session_start();
     <?php include '../includesAndPartials/footer.php';?>
 
 </body>
-
 </html>
